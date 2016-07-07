@@ -28,6 +28,11 @@ public class MainActivity extends Activity {
      * ImageButton
      */
     ImageButton btn_bluetooth;
+    ImageButton btn_up;
+    ImageButton btn_down;
+    ImageButton btn_left;
+    ImageButton btn_right;
+    ImageButton btn_stop;
     /**
      * ImageView
      */
@@ -66,11 +71,53 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        iv_status = (ImageView) findViewById(R.id.iv_status);
+
         btn_bluetooth = (ImageButton) findViewById(R.id.btn_bluetooth);
         btn_bluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkBluetooth();
+            }
+        });
+
+        btn_up = (ImageButton) findViewById(R.id.btn_up);
+        btn_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendData(getApplicationContext(), "up");
+            }
+        });
+
+        btn_down = (ImageButton) findViewById(R.id.btn_down);
+        btn_down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendData(getApplicationContext(), "down");
+            }
+        });
+
+        btn_left = (ImageButton) findViewById(R.id.btn_left);
+        btn_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendData(getApplicationContext(), "left");
+            }
+        });
+
+        btn_right = (ImageButton) findViewById(R.id.btn_right);
+        btn_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendData(getApplicationContext(), "right");
+            }
+        });
+
+        btn_stop = (ImageButton) findViewById(R.id.btn_stop);
+        btn_stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendData(getApplicationContext(), "stop");
             }
         });
     }
