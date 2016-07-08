@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.InputStream;
@@ -33,10 +34,20 @@ public class MainActivity extends Activity {
     ImageButton btn_left;
     ImageButton btn_right;
     ImageButton btn_stop;
+
+    ImageButton btn_step1;
+    ImageButton btn_step2;
+    ImageButton btn_step3;
+    ImageButton btn_step4;
+    ImageButton btn_step5;
     /**
      * ImageView
      */
     ImageView iv_status;
+    /**
+     * TextView
+     */
+    TextView tv_step;
     ////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -72,6 +83,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         iv_status = (ImageView) findViewById(R.id.iv_status);
+        tv_step = (TextView) findViewById(R.id.tv_step);
 
         btn_bluetooth = (ImageButton) findViewById(R.id.btn_bluetooth);
         btn_bluetooth.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +130,52 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 sendData(getApplicationContext(), "stop");
+                tv_step.setText("stop");
+            }
+        });
+
+        btn_step1 = (ImageButton) findViewById(R.id.btn_step1);
+        btn_step1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendData(getApplicationContext(), "step1");
+                tv_step.setText("1");
+            }
+        });
+
+        btn_step2 = (ImageButton) findViewById(R.id.btn_step2);
+        btn_step2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendData(getApplicationContext(), "step2");
+                tv_step.setText("2");
+            }
+        });
+
+        btn_step3 = (ImageButton) findViewById(R.id.btn_step3);
+        btn_step3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendData(getApplicationContext(), "step3");
+                tv_step.setText("3");
+            }
+        });
+
+        btn_step4 = (ImageButton) findViewById(R.id.btn_step4);
+        btn_step4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendData(getApplicationContext(), "step4");
+                tv_step.setText("4");
+            }
+        });
+
+        btn_step5 = (ImageButton) findViewById(R.id.btn_step5);
+        btn_step5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendData(getApplicationContext(), "step5");
+                tv_step.setText("5");
             }
         });
     }
