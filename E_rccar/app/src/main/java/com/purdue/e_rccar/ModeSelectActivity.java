@@ -24,37 +24,19 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-public class MainActivity extends Activity {
+public class ModeSelectActivity extends Activity {
 
     ////////////////////////////////////For Layout//////////////////////////////////////
     /**
      * ImageButton
      */
     ImageButton btn_bluetooth;
-    ImageButton btn_up;
-    ImageButton btn_down;
-    ImageButton btn_middle;
-    ImageButton btn_left1;
-    ImageButton btn_left2;
-    ImageButton btn_left3;
-    ImageButton btn_right1;
-    ImageButton btn_right2;
-    ImageButton btn_right3;
-    ImageButton btn_start;
-    ImageButton btn_stop;
-    ImageButton btn_step1;
-    ImageButton btn_step2;
-    ImageButton btn_step3;
-    ImageButton btn_step4;
-    ImageButton btn_step5;
+    ImageButton btn_mode1;
+    ImageButton btn_mode2;
     /**
      * ImageView
      */
     ImageView iv_status;
-    /**
-     * TextView
-     */
-    TextView tv_step;
     ////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -87,10 +69,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_modeselect);
 
         iv_status = (ImageView) findViewById(R.id.iv_status);
-        tv_step = (TextView) findViewById(R.id.tv_step);
 
         btn_bluetooth = (ImageButton) findViewById(R.id.btn_bluetooth);
         btn_bluetooth.setOnClickListener(new View.OnClickListener() {
@@ -100,134 +81,21 @@ public class MainActivity extends Activity {
             }
         });
 
-        btn_up = (ImageButton) findViewById(R.id.btn_up);
-        btn_up.setOnClickListener(new View.OnClickListener() {
+        btn_mode1 = (ImageButton) findViewById(R.id.btn_mode1);
+        btn_mode1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendData(getApplicationContext(), "up");
+                Intent i = new Intent(ModeSelectActivity.this, Mode1Activity.class);
+                startActivity(i);
             }
         });
 
-        btn_down = (ImageButton) findViewById(R.id.btn_down);
-        btn_down.setOnClickListener(new View.OnClickListener() {
+        btn_mode2 = (ImageButton) findViewById(R.id.btn_mode2);
+        btn_mode2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendData(getApplicationContext(), "down");
-            }
-        });
-
-        btn_middle = (ImageButton) findViewById(R.id.btn_middle);
-        btn_middle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendData(getApplicationContext(), "middle");
-            }
-        });
-        btn_left1 = (ImageButton) findViewById(R.id.btn_left1);
-        btn_left1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendData(getApplicationContext(), "left1");
-            }
-        });
-        btn_left2 = (ImageButton) findViewById(R.id.btn_left2);
-        btn_left2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendData(getApplicationContext(), "left2");
-            }
-        });
-        btn_left3 = (ImageButton) findViewById(R.id.btn_left3);
-        btn_left3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendData(getApplicationContext(), "left3");
-            }
-        });
-
-        btn_right1 = (ImageButton) findViewById(R.id.btn_right1);
-        btn_right1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendData(getApplicationContext(), "right1");
-            }
-        });
-        btn_right2 = (ImageButton) findViewById(R.id.btn_right2);
-        btn_right2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendData(getApplicationContext(), "right2");
-            }
-        });
-        btn_right3 = (ImageButton) findViewById(R.id.btn_right3);
-        btn_right3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendData(getApplicationContext(), "right3");
-            }
-        });
-
-        btn_start = (ImageButton) findViewById(R.id.btn_start);
-        btn_start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //sendData(getApplicationContext(), "stop");
-                startService(new Intent(getApplicationContext(), GyroService.class));
-                tv_step.setText("start");
-            }
-        });
-
-        btn_stop = (ImageButton) findViewById(R.id.btn_stop);
-        btn_stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendData(getApplicationContext(), "stop");
-                tv_step.setText("stop");
-            }
-        });
-
-        btn_step1 = (ImageButton) findViewById(R.id.btn_step1);
-        btn_step1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendData(getApplicationContext(), "step1");
-                tv_step.setText("1");
-            }
-        });
-
-        btn_step2 = (ImageButton) findViewById(R.id.btn_step2);
-        btn_step2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendData(getApplicationContext(), "step2");
-                tv_step.setText("2");
-            }
-        });
-
-        btn_step3 = (ImageButton) findViewById(R.id.btn_step3);
-        btn_step3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendData(getApplicationContext(), "step3");
-                tv_step.setText("3");
-            }
-        });
-
-        btn_step4 = (ImageButton) findViewById(R.id.btn_step4);
-        btn_step4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendData(getApplicationContext(), "step4");
-                tv_step.setText("4");
-            }
-        });
-
-        btn_step5 = (ImageButton) findViewById(R.id.btn_step5);
-        btn_step5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendData(getApplicationContext(), "step5");
-                tv_step.setText("5");
+                Intent i = new Intent(ModeSelectActivity.this, Mode2Activity.class);
+                startActivity(i);
             }
         });
     }
@@ -268,7 +136,7 @@ public class MainActivity extends Activity {
         // BluetoothDevice 원격 블루투스 기기를 나타냄.
         mRemoteDevie = getDeviceFromBondedList(selectedDeviceName);
         // java.util.UUID.fromString : 자바에서 중복되지 않는 Unique 키 생성.
-        UUID uuid = java.util.UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
+        UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
 
         try {
             // 소켓 생성, RFCOMM 채널을 통한 연결.

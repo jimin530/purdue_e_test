@@ -1,6 +1,6 @@
 #include <Servo.h>
 #include <SoftwareSerial.h>
-\
+
 SoftwareSerial BTSerial(8, 9); // SoftwareSerial(TX, RX)
 const byte BTpin = 3;
 boolean BTconnected = false;
@@ -8,7 +8,7 @@ boolean BTconnected = false;
 //모터A 컨트롤
 int IN1=7;
 int IN2=6;
- 
+
 //모터B 컨트롤
 int IN3=5;
 int IN4=4;
