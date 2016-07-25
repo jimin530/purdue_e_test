@@ -85,7 +85,7 @@ public class ModeSelectActivity extends Activity {
         btn_mode1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ModeSelectActivity.this, Mode1Activity.class);
+                Intent i = new Intent(ModeSelectActivity.this, Mode1_1Activity.class);
                 startActivity(i);
             }
         });
@@ -94,7 +94,7 @@ public class ModeSelectActivity extends Activity {
         btn_mode2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ModeSelectActivity.this, Mode2Activity.class);
+                Intent i = new Intent(ModeSelectActivity.this, Mode2_1Activity.class);
                 startActivity(i);
             }
         });
@@ -118,12 +118,13 @@ public class ModeSelectActivity extends Activity {
     }
 
     // 문자열 전송하는 함수(쓰레드 사용 x)
-    public static void sendData(Context context, String msg) {
-        msg += mStrDelimiter;  // 문자열 종료표시 (\n)
+    public static void sendData(Context context, char con) {
+        //msg += mStrDelimiter;  // 문자열 종료표시 (\n)
         try {
             // getBytes() : String을 byte로 변환
             // OutputStream.write : 데이터를 쓸때는 write(byte[]) 메소드를 사용함. byte[] 안에 있는 데이터를 한번에 기록해 준다.
-            mOutputStream.write(msg.getBytes());  // 문자열 전송.
+            //mOutputStream.write(msg.getBytes());  // 문자열 전송.
+            mOutputStream.write(con);
         } catch (Exception e) {  // 문자열 전송 도중 오류가 발생한 경우
             //finish();  // App 종료
             return;

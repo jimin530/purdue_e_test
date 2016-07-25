@@ -54,7 +54,7 @@ public class Mode1Activity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode1);
 
-        btn_up = (ImageButton) findViewById(R.id.btn_up);
+        /*btn_up = (ImageButton) findViewById(R.id.btn_up);
         btn_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -167,7 +167,7 @@ public class Mode1Activity extends Activity {
             public void onClick(View view) {
                 msa.sendData(getApplicationContext(), "step5");
             }
-        });
+        });*/
     }
 
     // onDestroy() : 어플이 종료될때 호출 되는 함수.

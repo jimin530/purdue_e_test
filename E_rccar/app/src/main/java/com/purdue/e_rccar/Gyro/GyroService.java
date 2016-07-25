@@ -58,9 +58,9 @@ public class GyroService extends Service implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.values[2] < 20.0) {
-            msa.sendData(getApplicationContext(), "up");
+            msa.sendData(getApplicationContext(), 'a');
         } else {
-            msa.sendData(getApplicationContext(), "down");
+            msa.sendData(getApplicationContext(), 'b');
         }
     }
 
