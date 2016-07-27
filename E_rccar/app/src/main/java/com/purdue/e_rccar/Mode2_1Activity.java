@@ -20,6 +20,12 @@ public class Mode2_1Activity extends Activity {
      * ImageButton
      */
     ImageButton btn_gyrodrive;
+    ImageButton btn_step1_2;
+    ImageButton btn_step2_2;
+    ImageButton btn_step3_2;
+    ImageButton btn_step4_2;
+    ImageButton btn_step5_2;
+
     ImageView wheel;
     ////////////////////////////////////////////////////////////////////////////////////
 
@@ -40,6 +46,8 @@ public class Mode2_1Activity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode2_1);
 
+        msa.sendData(getApplicationContext(), 'd');
+
         btn_gyrodrive = (ImageButton) findViewById(R.id.btn_gyrodrive);
         btn_gyrodrive.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +63,71 @@ public class Mode2_1Activity extends Activity {
                     gyro_start = true;
                     startService(new Intent(getApplicationContext(), GyroService.class));
                 }
+            }
+        });
+
+        btn_step1_2 = (ImageButton) findViewById(R.id.btn_step1_2);
+        btn_step1_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                msa.sendData(getApplicationContext(), 'd');
+                btn_step1_2.setBackgroundResource(R.drawable.btnimg_step1_pressed);
+                btn_step2_2.setBackgroundResource(R.drawable.btnimg_step2);
+                btn_step3_2.setBackgroundResource(R.drawable.btnimg_step3);
+                btn_step4_2.setBackgroundResource(R.drawable.btnimg_step4);
+                btn_step5_2.setBackgroundResource(R.drawable.btnimg_step5);
+            }
+        });
+
+        btn_step2_2 = (ImageButton) findViewById(R.id.btn_step2_2);
+        btn_step2_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                msa.sendData(getApplicationContext(), 'e');
+                btn_step1_2.setBackgroundResource(R.drawable.btnimg_step1);
+                btn_step2_2.setBackgroundResource(R.drawable.btnimg_step2_pressed);
+                btn_step3_2.setBackgroundResource(R.drawable.btnimg_step3);
+                btn_step4_2.setBackgroundResource(R.drawable.btnimg_step4);
+                btn_step5_2.setBackgroundResource(R.drawable.btnimg_step5);
+            }
+        });
+
+        btn_step3_2 = (ImageButton) findViewById(R.id.btn_step3_2);
+        btn_step3_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                msa.sendData(getApplicationContext(), 'f');
+                btn_step1_2.setBackgroundResource(R.drawable.btnimg_step1);
+                btn_step2_2.setBackgroundResource(R.drawable.btnimg_step2);
+                btn_step3_2.setBackgroundResource(R.drawable.btnimg_step3_pressed);
+                btn_step4_2.setBackgroundResource(R.drawable.btnimg_step4);
+                btn_step5_2.setBackgroundResource(R.drawable.btnimg_step5);
+            }
+        });
+
+        btn_step4_2 = (ImageButton) findViewById(R.id.btn_step4_2);
+        btn_step4_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                msa.sendData(getApplicationContext(), 'g');
+                btn_step1_2.setBackgroundResource(R.drawable.btnimg_step1);
+                btn_step2_2.setBackgroundResource(R.drawable.btnimg_step2);
+                btn_step3_2.setBackgroundResource(R.drawable.btnimg_step3);
+                btn_step4_2.setBackgroundResource(R.drawable.btnimg_step4_pressed);
+                btn_step5_2.setBackgroundResource(R.drawable.btnimg_step5);
+            }
+        });
+
+        btn_step5_2 = (ImageButton) findViewById(R.id.btn_step5_2);
+        btn_step5_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                msa.sendData(getApplicationContext(), 'h');
+                btn_step1_2.setBackgroundResource(R.drawable.btnimg_step1);
+                btn_step2_2.setBackgroundResource(R.drawable.btnimg_step2);
+                btn_step3_2.setBackgroundResource(R.drawable.btnimg_step3);
+                btn_step4_2.setBackgroundResource(R.drawable.btnimg_step4);
+                btn_step5_2.setBackgroundResource(R.drawable.btnimg_step5_pressed);
             }
         });
 
@@ -113,7 +186,6 @@ public class Mode2_1Activity extends Activity {
                         break;
                     }
                     case MotionEvent.ACTION_UP: {
-                        animateWheel(mCurrAngle, 0, 0);
                         break;
                     }
                 }
@@ -161,6 +233,11 @@ public class Mode2_1Activity extends Activity {
         btn_gyrodrive_draw = getResources().getDrawable(R.drawable.btnimg_dirve_off);
         btn_gyrodrive.setBackground(btn_gyrodrive_draw);
         stopService(new Intent(getApplicationContext(), GyroService.class));
+        btn_step1_2.setBackgroundResource(R.drawable.btnimg_step1);
+        btn_step2_2.setBackgroundResource(R.drawable.btnimg_step2);
+        btn_step3_2.setBackgroundResource(R.drawable.btnimg_step3);
+        btn_step4_2.setBackgroundResource(R.drawable.btnimg_step4);
+        btn_step5_2.setBackgroundResource(R.drawable.btnimg_step5);
         try {
         } catch (Exception e) {
         }

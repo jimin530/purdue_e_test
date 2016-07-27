@@ -159,7 +159,7 @@
                         android:layout_height="match_parent"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:background="@drawable/btnimg_step1"/>
+                        android:background="@drawable/btnimg_step1_pressed"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"

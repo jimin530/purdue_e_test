@@ -68,7 +68,7 @@ public class GyroService extends Service implements SensorEventListener {
     public void onDestroy() {
         Log.e(TAG, "onDestroy");
         super.onDestroy();
-
+        msa.sendData(getApplicationContext(), 'c');
         // 센서에서 이벤트 리스너 분리
         sm.unregisterListener(this);
 

@@ -33,6 +33,7 @@ public class ModeSelectActivity extends Activity {
     ImageButton btn_bluetooth;
     ImageButton btn_mode1;
     ImageButton btn_mode2;
+    ImageButton btn_autoparking;
     /**
      * ImageView
      */
@@ -92,6 +93,15 @@ public class ModeSelectActivity extends Activity {
 
         btn_mode2 = (ImageButton) findViewById(R.id.btn_mode2);
         btn_mode2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ModeSelectActivity.this, Mode2_1Activity.class);
+                startActivity(i);
+            }
+        });
+
+        btn_autoparking = (ImageButton) findViewById(R.id.btn_autoparking);
+        btn_autoparking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ModeSelectActivity.this, Mode2_1Activity.class);

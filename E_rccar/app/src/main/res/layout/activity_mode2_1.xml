@@ -110,12 +110,12 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="150">
                     <ImageButton
-                        android:id="@+id/btn_step1"
+                        android:id="@+id/btn_step1_2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:background="@drawable/btnimg_step1"/>
+                        android:background="@drawable/btnimg_step1_pressed"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -126,7 +126,7 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="150">
                     <ImageButton
-                        android:id="@+id/btn_step2"
+                        android:id="@+id/btn_step2_2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerHorizontal="true"
@@ -142,7 +142,7 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="150">
                     <ImageButton
-                        android:id="@+id/btn_step3"
+                        android:id="@+id/btn_step3_2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerHorizontal="true"
@@ -158,7 +158,7 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="150">
                     <ImageButton
-                        android:id="@+id/btn_step4"
+                        android:id="@+id/btn_step4_2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerHorizontal="true"
@@ -174,7 +174,7 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="150">
                     <ImageButton
-                        android:id="@+id/btn_step5"
+                        android:id="@+id/btn_step5_2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerHorizontal="true"

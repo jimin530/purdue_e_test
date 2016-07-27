@@ -41,6 +41,8 @@ public class Mode1_1Activity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode1_1);
 
+        msa.sendData(getApplicationContext(), 'd');
+
         btn_up = (ImageButton) findViewById(R.id.btn_up);
         btn_up.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +72,11 @@ public class Mode1_1Activity extends Activity {
             @Override
             public void onClick(View view) {
                 msa.sendData(getApplicationContext(), 'd');
+                btn_step1.setBackgroundResource(R.drawable.btnimg_step1_pressed);
+                btn_step2.setBackgroundResource(R.drawable.btnimg_step2);
+                btn_step3.setBackgroundResource(R.drawable.btnimg_step3);
+                btn_step4.setBackgroundResource(R.drawable.btnimg_step4);
+                btn_step5.setBackgroundResource(R.drawable.btnimg_step5);
             }
         });
 
@@ -78,6 +85,11 @@ public class Mode1_1Activity extends Activity {
             @Override
             public void onClick(View view) {
                 msa.sendData(getApplicationContext(), 'e');
+                btn_step1.setBackgroundResource(R.drawable.btnimg_step1);
+                btn_step2.setBackgroundResource(R.drawable.btnimg_step2_pressed);
+                btn_step3.setBackgroundResource(R.drawable.btnimg_step3);
+                btn_step4.setBackgroundResource(R.drawable.btnimg_step4);
+                btn_step5.setBackgroundResource(R.drawable.btnimg_step5);
             }
         });
 
@@ -86,6 +98,11 @@ public class Mode1_1Activity extends Activity {
             @Override
             public void onClick(View view) {
                 msa.sendData(getApplicationContext(), 'f');
+                btn_step1.setBackgroundResource(R.drawable.btnimg_step1);
+                btn_step2.setBackgroundResource(R.drawable.btnimg_step2);
+                btn_step3.setBackgroundResource(R.drawable.btnimg_step3_pressed);
+                btn_step4.setBackgroundResource(R.drawable.btnimg_step4);
+                btn_step5.setBackgroundResource(R.drawable.btnimg_step5);
             }
         });
 
@@ -94,6 +111,11 @@ public class Mode1_1Activity extends Activity {
             @Override
             public void onClick(View view) {
                 msa.sendData(getApplicationContext(), 'g');
+                btn_step1.setBackgroundResource(R.drawable.btnimg_step1);
+                btn_step2.setBackgroundResource(R.drawable.btnimg_step2);
+                btn_step3.setBackgroundResource(R.drawable.btnimg_step3);
+                btn_step4.setBackgroundResource(R.drawable.btnimg_step4_pressed);
+                btn_step5.setBackgroundResource(R.drawable.btnimg_step5);
             }
         });
 
@@ -102,6 +124,11 @@ public class Mode1_1Activity extends Activity {
             @Override
             public void onClick(View view) {
                 msa.sendData(getApplicationContext(), 'h');
+                btn_step1.setBackgroundResource(R.drawable.btnimg_step1);
+                btn_step2.setBackgroundResource(R.drawable.btnimg_step2);
+                btn_step3.setBackgroundResource(R.drawable.btnimg_step3);
+                btn_step4.setBackgroundResource(R.drawable.btnimg_step4);
+                btn_step5.setBackgroundResource(R.drawable.btnimg_step5_pressed);
             }
         });
 
@@ -160,7 +187,6 @@ public class Mode1_1Activity extends Activity {
                         break;
                     }
                     case MotionEvent.ACTION_UP: {
-                        animateWheel(mCurrAngle, 0, 0);
                         break;
                     }
                 }
@@ -205,6 +231,12 @@ public class Mode1_1Activity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        msa.sendData(getApplicationContext(), 'c');
+        btn_step1.setBackgroundResource(R.drawable.btnimg_step1);
+        btn_step2.setBackgroundResource(R.drawable.btnimg_step2);
+        btn_step3.setBackgroundResource(R.drawable.btnimg_step3);
+        btn_step4.setBackgroundResource(R.drawable.btnimg_step4);
+        btn_step5.setBackgroundResource(R.drawable.btnimg_step5);
         try {
         } catch (Exception e) {
         }
