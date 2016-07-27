@@ -27,6 +27,7 @@ Servo myservo;//create a object of servo,named as myservo
 int SPEED = 180;
 boolean isForward = true;
 boolean isStop = true;
+boolean isFinish = false;
 
 int BACK_LEFT_UL_TRIG = A4;
 int BACK_LEFT_UL_ECHO = A5;
@@ -75,27 +76,36 @@ void loop() {
   //print_Back_Left_Distance();
   //print_Back_Right_Distance();
   //delay(300);
-  
-  //전진
-  if (getstr == 'a') {
-    CAR_move(FORWARD, SPEED, SPEED); //car move forward with speed 180
-    isForward = true;
-    isStop = false;
-  }
-
-  //후진
-  else if (getstr == 'b') {
+  if (!isFinish)
+  {
     CAR_move(BACK, SPEED, SPEED);
-    isForward = false;
-    isStop = false;
-  }
-
-  //정지
-  else if (getstr == 'c') {
+    delay(150);
     CAR_stop();
+    if (isHorizontal())
+    {
+      CAR_stop();
+      isFinish = true;
+    }
+    delay(500);
   }
 
-  else if (getstr == 'd') {
+  /*
+    //전진
+    if (getstr == 'a') {
+    CAR_move(FORWARD, SPEED, SPEED); //car move forward with speed 180
+    }
+
+    //후진
+    else if (getstr == 'b') {
+    CAR_move(BACK, SPEED, SPEED);
+    }
+
+    //정지
+    else if (getstr == 'c') {
+    CAR_stop();
+    }
+
+    else if (getstr == 'd') {
     SPEED = 120;
     if (isForward && !isStop)
     {
@@ -105,9 +115,9 @@ void loop() {
     {
       CAR_move(BACK, SPEED, SPEED);
     }
-  }
+    }
 
-  else if (getstr == 'e') {
+    else if (getstr == 'e') {
     SPEED = 135;
     if (isForward && !isStop)
     {
@@ -117,9 +127,9 @@ void loop() {
     {
       CAR_move(BACK, SPEED, SPEED);
     }
-  }
+    }
 
-  else if (getstr == 'f') {
+    else if (getstr == 'f') {
     SPEED = 170;
     if (isForward && !isStop)
     {
@@ -129,9 +139,9 @@ void loop() {
     {
       CAR_move(BACK, SPEED, SPEED);
     }
-  }
+    }
 
-  else if (getstr == 'g') {
+    else if (getstr == 'g') {
     SPEED = 215;
     if (isForward && !isStop)
     {
@@ -141,9 +151,9 @@ void loop() {
     {
       CAR_move(BACK, SPEED, SPEED);
     }
-  }
+    }
 
-  else if (getstr == 'h') {
+    else if (getstr == 'h') {
     SPEED = 250;
     if (isForward && !isStop)
     {
@@ -153,50 +163,50 @@ void loop() {
     {
       CAR_move(BACK, SPEED, SPEED);
     }
-  }
+    }
 
-  //방향 중간
-  else if (getstr == 'i') {
+    //방향 중간
+    else if (getstr == 'i') {
     angle = ANGLE_MIDDLE;//servo rotate to 130
     myservo.write(angle);
-  }
+    }
 
-  //왼쪽 1번
-  else if (getstr == 'j') {
+    //왼쪽 1번
+    else if (getstr == 'j') {
     angle = ANGLE_LEFT1;//servo rotate to 130
     myservo.write(angle);
-  }
+    }
 
-  //왼쪽 2번
-  else if (getstr == 'k') {
+    //왼쪽 2번
+    else if (getstr == 'k') {
     angle = ANGLE_LEFT2;//servo rotate to 130
     myservo.write(angle);
-  }
+    }
 
-  //왼쪽 3번
-  else if (getstr == 'l') {
+    //왼쪽 3번
+    else if (getstr == 'l') {
     angle = ANGLE_LEFT3;//servo rotate to 130
     myservo.write(angle);
-  }
+    }
 
-  //오른쪽 1번
-  else if (getstr == 'm') {
+    //오른쪽 1번
+    else if (getstr == 'm') {
     angle = ANGLE_RIGHT1;//servo rotate to 130
     myservo.write(angle);
-  }
+    }
 
-  //오른쪽 2번
-  else if (getstr == 'n') {
+    //오른쪽 2번
+    else if (getstr == 'n') {
     angle = ANGLE_RIGHT2;//servo rotate to 130
     myservo.write(angle);
 
-  }
+    }
 
-  //오른쪽 3번
-  else if (getstr == 'o') {
+    //오른쪽 3번
+    else if (getstr == 'o') {
     angle = ANGLE_RIGHT3;//servo rotate to 130
     myservo.write(angle);
-  }
+    }*/
 }
 
 /**
@@ -275,6 +285,8 @@ void CAR_move(unsigned char direction, unsigned char speed_left, unsigned char s
       digitalWrite(MOTOR_L_2, LOW); //left motor clockwise rotation
       digitalWrite(MOTOR_R_1, HIGH);
       digitalWrite(MOTOR_R_2, LOW);
+      isForward = true;
+      isStop = false;
       break;//right motor clockwise rotation
     //car move back with speed 180
     case 1:
@@ -282,6 +294,8 @@ void CAR_move(unsigned char direction, unsigned char speed_left, unsigned char s
       digitalWrite(MOTOR_L_2, HIGH);
       digitalWrite(MOTOR_R_1, LOW);
       digitalWrite(MOTOR_R_2, HIGH);
+      isForward = false;
+      isStop = false;
       break;
     default:
       break;
