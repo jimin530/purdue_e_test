@@ -27,7 +27,7 @@ Servo myservo;//create a object of servo,named as myservo
 int SPEED = 180;
 boolean isForward = true;
 boolean isStop = true;
-boolean isFinish = false;
+boolean isParking_Finish = false;
 
 int BACK_LEFT_UL_TRIG = A4;
 int BACK_LEFT_UL_ECHO = A5;
@@ -76,7 +76,18 @@ void loop() {
   //print_Back_Left_Distance();
   //print_Back_Right_Distance();
   //delay(300);
-  if (!isFinish)
+
+  /*if(isNear(LEFT_IR))
+  {
+    Serial.println("left");
+  }
+  if(isNear(RIGHT_IR))
+  {
+    Serial.println("right");
+  }
+  delay(500);*/
+  
+  if (!isParking_Finish)
   {
     CAR_move(BACK, SPEED, SPEED);
     delay(150);
@@ -84,7 +95,7 @@ void loop() {
     if (isHorizontal())
     {
       CAR_stop();
-      isFinish = true;
+      isParking_Finish = true;
     }
     delay(500);
   }
@@ -262,9 +273,9 @@ int getDistance(int trig, int echo)
   digitalWrite(trig, HIGH);
   delayMicroseconds(10);
   digitalWrite(trig, LOW);
-  int distance = pulseIn(echo, HIGH) * 17 / 1000;
+  //int distance = pulseIn(echo, HIGH);// * 17 / 1000;
 
-  return distance;
+  return pulseIn(echo, HIGH);;
 }
 
 /**

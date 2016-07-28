@@ -104,7 +104,7 @@ public class ModeSelectActivity extends Activity {
         btn_autoparking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ModeSelectActivity.this, Mode2_1Activity.class);
+                Intent i = new Intent(ModeSelectActivity.this, ParkingSelectActivity.class);
                 startActivity(i);
             }
         });
