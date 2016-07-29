@@ -31,7 +31,7 @@ public class Mode2_1Activity extends Activity {
 
     //wheel 회전
     private double mCurrAngle = 0, mPrevAngle = 0;
-    private double mStart = 0,  mSave = 0;
+    private double mStart = 0, mSave = 0;
 
     //자이로 플래그
     boolean gyro_start = false;
@@ -145,7 +145,7 @@ public class Mode2_1Activity extends Activity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
                         mCurrAngle = Math.toDegrees(Math.atan2(x - xc, yc - y));
-                        mStart=mSave = 0;
+                        mStart = mSave = 0;
                         break;
                     }
                     case MotionEvent.ACTION_MOVE: {
@@ -153,20 +153,20 @@ public class Mode2_1Activity extends Activity {
                         mCurrAngle = Math.toDegrees(Math.atan2(x - xc, yc - y));
                         diff = -mPrevAngle + mCurrAngle;
 
-                        if (mStart <= 90 && mStart >= -90){
-                            animateWheel(mStart,mStart+diff,0);
+                        if (mStart <= 90 && mStart >= -90) {
+                            animateWheel(mStart, mStart + diff, 0);
                             mStart += diff;
-                        }
-                        else if (mStart > 90 && mStart < 180){
-                            mStart = 90;diff=0;
-                            animateWheel(mStart,mStart,0);
-                        }
-                        else if (mStart < -90 && mStart > -180){
-                            mStart = -90;diff=0;
-                            animateWheel(mStart,mStart,0);
+                        } else if (mStart > 90 && mStart < 180) {
+                            mStart = 90;
+                            diff = 0;
+                            animateWheel(mStart, mStart, 0);
+                        } else if (mStart < -90 && mStart > -180) {
+                            mStart = -90;
+                            diff = 0;
+                            animateWheel(mStart, mStart, 0);
                         }
 
-                        Log.i("현재 : ",setSignal(mStart)+"");
+                        Log.i("현재 : ", setSignal(mStart) + "");
                         if (setSignal(mStart).equals("middle")) {
                             msa.sendData(getApplicationContext(), 'i');
                         } else if (setSignal(mStart).equals("left1")) {

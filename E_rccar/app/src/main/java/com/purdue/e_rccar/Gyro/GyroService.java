@@ -9,7 +9,6 @@ import android.hardware.SensorManager;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.purdue.e_rccar.MainActivity;
 import com.purdue.e_rccar.ModeSelectActivity;
 
 /**

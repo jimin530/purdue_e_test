@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.purdue.e_rccar">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
@@ -15,7 +15,8 @@
         android:label="JRC"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,47 +28,26 @@
         <activity
             android:name=".ModeSelectActivity"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
-        </activity>
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"></activity>
 
         <activity
             android:name=".ParkingSelectActivity"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
-        </activity>
-
-        <activity
-            android:name=".Mode1Activity"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
-        </activity>
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"></activity>
 
         <activity
             android:name=".Mode1_1Activity"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
-        </activity>
-
-        <activity
-            android:name=".Mode2Activity"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
-        </activity>
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"></activity>
 
         <activity
             android:name=".Mode2_1Activity"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
-        </activity>
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"></activity>
 
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
-        </activity>
-
-        <service android:name=".Gyro.GyroService" android:enabled="true">
-        </service>
+        <service
+            android:name=".Gyro.GyroService"
+            android:enabled="true"></service>
 
     </application>
 
