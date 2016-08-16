@@ -1,55 +1,180 @@
 #include <Servo.h>
 
-Servo myservo;//create a object of servo,named as myservo
+Servo myservo;
 
-#define LEFT_IR 4
-#define RIGHT_IR 7
+int LEFT_IR = 4;
+int RIGHT_IR = 7;
 
-#define ENA_PIN   5 // ENA of DC motor driver module attach to pin5 of sunfounder uno board
-#define ENB_PIN   6 // ENB of DC motor driver moduleattach to pin6 of sunfounder uno board
-#define MOTOR_L_1 8 // left MOTOR_L_1 attach to pin8 
-#define MOTOR_L_2 9 // left MOTOR_L_2 attach to pin9
-#define MOTOR_R_1 10 //right  MOTOR_R_1 attach to pin10
-#define MOTOR_R_2 11 //right MOTOR_R_2 attach to 
+int ENA_PIN = 5;
+int ENB_PIN = 6;
+int MOTOR_L_1 = 8; 
+int MOTOR_L_2 = 9;
+int MOTOR_R_1 = 10;
+int MOTOR_R_2 = 11; 
 
-#define FORWARD 0  //define forward=0,car move forward
-#define BACK    1 //define back=1,car move back
-//#define SPEED 180 //define SPEED=180,it is the rotate speed of motor
+int FORWARD = 0;
+int BACK = 1;
 
-#define ANGLE_RIGHT1  103 //define  ANGLE_RIGHT_MAX=130,it is the  rotate angle of servo 
-#define ANGLE_RIGHT2 113
-#define ANGLE_RIGHT3  123
-#define ANGLE_LEFT1   83
-#define ANGLE_LEFT2  73
-#define ANGLE_LEFT3  63
-#define ANGLE_MIDDLE 93
+int ANGLE_RIGHT1 = 101;
+int ANGLE_RIGHT2 = 111;
+int ANGLE_RIGHT3 = 121;
+int ANGLE_LEFT1 = 81;
+int ANGLE_LEFT2 = 71;
+int ANGLE_LEFT3 = 61;
+int ANGLE_MIDDLE = 91;
+
+int MOVETIME = 150;
+
+int REARAREA = 20;
+int REARGAP = 5;
+
+int PARALLELAREA = 25;
+int PARALLELGAP = 13;
 
 int SPEED = 180;
 boolean isForward = true;
 boolean isStop = true;
 boolean isParking_Finish = false;
 
-int BACK_LEFT_UL_TRIG = A4;
-int BACK_LEFT_UL_ECHO = A5;
-int BACK_RIGHT_UL_TRIG = A2;
-int BACK_RIGHT_UL_ECHO = A3;
-int FRONT_UL_TRIG = A0;
-int FRONT_UL_ECHO = A1;
+int LEFT_TRIG = A4;
+int LEFT_ECHO = A5;
+int RIGHT_TRIG = A2;
+int RIGHT_ECHO = A3;
 
 int LED = 13;
 unsigned char angle = ANGLE_MIDDLE;
 char getstr;
 
+int flag = 0;
+
+boolean isNear(int pinnum)
+{
+  int val = digitalRead(pinnum);
+  if (val == LOW)
+  {
+    return true;
+  }
+  return false;
+}
+
+boolean isHorizontal()
+{
+  int val_left = digitalRead(LEFT_IR);
+  int val_right = digitalRead(RIGHT_IR);
+  if (val_left == LOW && val_right == LOW)
+  {
+    return true;
+  }
+  return false;
+}
+
+int getDistance(int trig, int echo)
+{
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(20);
+  digitalWrite(trig, LOW);
+  return pulseIn(echo, HIGH);
+}
+
+int getLeft()
+{
+  digitalWrite(LEFT_TRIG, HIGH);
+  delayMicroseconds(20);
+  digitalWrite(LEFT_TRIG, LOW);
+  return pulseIn(LEFT_ECHO, HIGH);
+}
+
+int getRight()
+{
+  digitalWrite(RIGHT_TRIG, HIGH);
+  delayMicroseconds(20);
+  digitalWrite(RIGHT_TRIG, LOW);
+  return pulseIn(RIGHT_ECHO, HIGH);
+}
+
+void setMiddle()
+{
+    angle = ANGLE_MIDDLE;
+    myservo.write(angle);
+    delay(MOVETIME);  
+}
+
+void setRight()
+{
+    angle = ANGLE_RIGHT3;
+    myservo.write(angle);
+    delay(MOVETIME);  
+}
+
+void setLeft()
+{
+    angle = ANGLE_LEFT3;
+    myservo.write(angle);
+    delay(MOVETIME);  
+}
+
+void CAR_move(unsigned char direction, unsigned char speed_left, unsigned char speed_right)
+{
+  switch (direction)
+  {
+  case 0:
+    digitalWrite(MOTOR_L_1, HIGH);
+    digitalWrite(MOTOR_L_2, LOW);
+    digitalWrite(MOTOR_R_1, HIGH);
+    digitalWrite(MOTOR_R_2, LOW);
+    isForward = true;
+    isStop = false;
+    break;
+
+  case 1:
+    digitalWrite(MOTOR_L_1, LOW);
+    digitalWrite(MOTOR_L_2, HIGH);
+    digitalWrite(MOTOR_R_1, LOW);
+    digitalWrite(MOTOR_R_2, HIGH);
+    isForward = false;
+    isStop = false;
+    break;
+
+  default:
+    break;
+  }
+  analogWrite(ENA_PIN, speed_left);
+  analogWrite(ENB_PIN, speed_right);
+}
+
+void CAR_stop()
+{
+  digitalWrite(MOTOR_L_1, LOW);
+  digitalWrite(MOTOR_L_2, LOW);
+  digitalWrite(MOTOR_R_1, LOW);
+  digitalWrite(MOTOR_R_2, LOW);
+  isStop = true;
+}
+
+void forward()
+{
+    CAR_move(FORWARD, SPEED, SPEED);
+    delay(MOVETIME);
+    CAR_stop();
+    delay(MOVETIME);
+}
+
+void back()
+{
+    CAR_move(BACK, SPEED, SPEED);
+    delay(MOVETIME);
+    CAR_stop();
+    delay(MOVETIME);
+}
+
 void setup() {
   pinMode(LED, OUTPUT);
   Serial.begin(9600);
 
-  pinMode(BACK_LEFT_UL_TRIG, OUTPUT);
-  pinMode(BACK_LEFT_UL_ECHO, INPUT);
-  pinMode(BACK_RIGHT_UL_TRIG, OUTPUT);
-  pinMode(BACK_RIGHT_UL_ECHO, INPUT);
-  pinMode(FRONT_UL_TRIG, OUTPUT);
-  pinMode(FRONT_UL_ECHO, INPUT);
+  pinMode(LEFT_TRIG, OUTPUT);
+  pinMode(LEFT_ECHO, INPUT);
+  pinMode(RIGHT_TRIG, OUTPUT);
+  pinMode(RIGHT_ECHO, INPUT);
 
   pinMode(LEFT_IR, INPUT);
   pinMode(RIGHT_IR, INPUT);
@@ -61,62 +186,38 @@ void setup() {
   pinMode(MOTOR_R_1, OUTPUT);
   pinMode(MOTOR_R_2, OUTPUT);
 
-  myservo.attach(2);//servo attach to pin2
-  myservo.write(ANGLE_MIDDLE);//set the angle(90) of servo
-
-  CAR_move(BACK, 0, 0); //car stop
-
+  myservo.attach(2);
+  myservo.write(ANGLE_MIDDLE);
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop() 
+{
+  if (flag == 0) {
+    //rearParking();
+    control();
+  }
+  else if (flag == 1) {
+    rearParking1();
+  }
+  else if (flag == 2) {
+    rearParking2();
+  }
+}
+
+void control()
+{
   getstr = Serial.read();
 
-  //print_Front_Distance();
-  //print_Back_Left_Distance();
-  //print_Back_Right_Distance();
-  //delay(300);
-
-  /*if(isNear(LEFT_IR))
-  {
-    Serial.println("left");
+  if (getstr == 'a') {
+    CAR_move(FORWARD, SPEED, SPEED);
   }
-  if(isNear(RIGHT_IR))
-  {
-    Serial.println("right");
-  }
-  delay(500);*/
-  
-  if (!isParking_Finish)
-  {
+  else if (getstr == 'b') {
     CAR_move(BACK, SPEED, SPEED);
-    delay(150);
-    CAR_stop();
-    if (isHorizontal())
-    {
-      CAR_stop();
-      isParking_Finish = true;
-    }
-    delay(500);
   }
-
-  /*
-    //전진
-    if (getstr == 'a') {
-    CAR_move(FORWARD, SPEED, SPEED); //car move forward with speed 180
-    }
-
-    //후진
-    else if (getstr == 'b') {
-    CAR_move(BACK, SPEED, SPEED);
-    }
-
-    //정지
-    else if (getstr == 'c') {
+  else if (getstr == 'c') {
     CAR_stop();
-    }
-
-    else if (getstr == 'd') {
+  }
+  else if (getstr == 'd') {
     SPEED = 120;
     if (isForward && !isStop)
     {
@@ -126,9 +227,8 @@ void loop() {
     {
       CAR_move(BACK, SPEED, SPEED);
     }
-    }
-
-    else if (getstr == 'e') {
+  }
+  else if (getstr == 'e') {
     SPEED = 135;
     if (isForward && !isStop)
     {
@@ -138,9 +238,8 @@ void loop() {
     {
       CAR_move(BACK, SPEED, SPEED);
     }
-    }
-
-    else if (getstr == 'f') {
+  }
+  else if (getstr == 'f') {
     SPEED = 170;
     if (isForward && !isStop)
     {
@@ -150,9 +249,8 @@ void loop() {
     {
       CAR_move(BACK, SPEED, SPEED);
     }
-    }
-
-    else if (getstr == 'g') {
+  }
+  else if (getstr == 'g') {
     SPEED = 215;
     if (isForward && !isStop)
     {
@@ -162,9 +260,8 @@ void loop() {
     {
       CAR_move(BACK, SPEED, SPEED);
     }
-    }
-
-    else if (getstr == 'h') {
+  }
+  else if (getstr == 'h') {
     SPEED = 250;
     if (isForward && !isStop)
     {
@@ -174,153 +271,224 @@ void loop() {
     {
       CAR_move(BACK, SPEED, SPEED);
     }
-    }
-
-    //방향 중간
-    else if (getstr == 'i') {
-    angle = ANGLE_MIDDLE;//servo rotate to 130
-    myservo.write(angle);
-    }
-
-    //왼쪽 1번
-    else if (getstr == 'j') {
-    angle = ANGLE_LEFT1;//servo rotate to 130
-    myservo.write(angle);
-    }
-
-    //왼쪽 2번
-    else if (getstr == 'k') {
-    angle = ANGLE_LEFT2;//servo rotate to 130
-    myservo.write(angle);
-    }
-
-    //왼쪽 3번
-    else if (getstr == 'l') {
-    angle = ANGLE_LEFT3;//servo rotate to 130
-    myservo.write(angle);
-    }
-
-    //오른쪽 1번
-    else if (getstr == 'm') {
-    angle = ANGLE_RIGHT1;//servo rotate to 130
-    myservo.write(angle);
-    }
-
-    //오른쪽 2번
-    else if (getstr == 'n') {
-    angle = ANGLE_RIGHT2;//servo rotate to 130
-    myservo.write(angle);
-
-    }
-
-    //오른쪽 3번
-    else if (getstr == 'o') {
-    angle = ANGLE_RIGHT3;//servo rotate to 130
-    myservo.write(angle);
-    }*/
-}
-
-/**
-   IR 이용 함수
-*/
-boolean isHorizontal() //둘다 가까운상태면(수평) true반환(IR센서 이용)
-{
-  int val_left = digitalRead(LEFT_IR);
-  int val_right = digitalRead(RIGHT_IR);
-  if (val_left == val_right && val_right == LOW) //둘다 가까운상태면(수평)
-  {
-    return true;
   }
-  return false;
-}
-
-boolean isNear(int pinnum) //가까이 있으면 true반환(IR센서 이용)
-{
-  int val = digitalRead(pinnum);
-  if (val == LOW) //가까이 있으면
-  {
-    return true;
+  else if (getstr == 'i') {
+    angle = ANGLE_MIDDLE;
+    myservo.write(angle);
   }
-  return false;
+  else if (getstr == 'j') {
+    angle = ANGLE_LEFT1;
+    myservo.write(angle);
+  }
+  else if (getstr == 'k') {
+    angle = ANGLE_LEFT2;
+    myservo.write(angle);
+  }
+  else if (getstr == 'l') {
+    angle = ANGLE_LEFT3;
+    myservo.write(angle);
+  }
+  else if (getstr == 'm') {
+    angle = ANGLE_RIGHT1;
+    myservo.write(angle);
+  }
+  else if (getstr == 'n') {
+    angle = ANGLE_RIGHT2;
+    myservo.write(angle);
+  }
+  else if (getstr == 'o') {
+    angle = ANGLE_RIGHT3;
+    myservo.write(angle);
+  }
+  else if (getstr == 'p') {
+    SPEED = 180;
+    rearParking();
+  }
+  else if (getstr == 'r') {
+    SPEED = 180;
+    parallelParking();
+  }
 }
 
-/**
-   초음파 이용 함수
-*/
-void print_Front_Distance()
+void parallelParking()
 {
-  Serial.print("FRONT : ");
-  Serial.print(getDistance(FRONT_UL_TRIG, FRONT_UL_ECHO));
-  Serial.println("cm");
-}
+  setMiddle();
 
-void print_Back_Left_Distance()
-{
-  Serial.print("BACK_LEFT : ");
-  Serial.print(getDistance(BACK_LEFT_UL_TRIG, BACK_LEFT_UL_ECHO));
-  Serial.println("cm");
-}
+  int gap = 0;
+  int distance;
 
-void print_Back_Right_Distance()
-{
-  Serial.print("BACK_RIGHT : ");
-  Serial.print(getDistance(BACK_RIGHT_UL_TRIG, BACK_RIGHT_UL_ECHO));
-  Serial.println("cm");
-}
-
-int getDistance(int trig, int echo)
-{
-  digitalWrite(trig, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trig, LOW);
-  //int distance = pulseIn(echo, HIGH);// * 17 / 1000;
-
-  return pulseIn(echo, HIGH);;
-}
-
-/**
-   서보
-*/
-void SERVO_Write(void)
-{
-  myservo.write(angle);//set the rotate angle of servo
-}
-
-void CAR_move(unsigned char direction, unsigned char speed_left, unsigned char speed_right)
-{
-  switch (direction)
+  for (int count = PARALLELAREA; count >= 0; count--)
   {
-    //car move forward with speed 180
-    case 0:
-      digitalWrite(MOTOR_L_1, HIGH);
-      digitalWrite(MOTOR_L_2, LOW); //left motor clockwise rotation
-      digitalWrite(MOTOR_R_1, HIGH);
-      digitalWrite(MOTOR_R_2, LOW);
-      isForward = true;
-      isStop = false;
-      break;//right motor clockwise rotation
-    //car move back with speed 180
-    case 1:
-      digitalWrite(MOTOR_L_1, LOW);
-      digitalWrite(MOTOR_L_2, HIGH);
-      digitalWrite(MOTOR_R_1, LOW);
-      digitalWrite(MOTOR_R_2, HIGH);
-      isForward = false;
-      isStop = false;
+    forward();
+
+    distance = getRight();
+
+    if (distance > 800)
+    {
+      gap++;
+    }
+    else
+    {
+      gap = 0;
+    }
+
+    if (gap > PARALLELGAP)
+    {
+      parallel();
+      //flag = 3;
       break;
-    default:
-      break;
+    }
   }
-  analogWrite(ENA_PIN, speed_left); //write speed_left to ENA_PIN,if speed_left is high,allow left motor rotate
-  analogWrite(ENB_PIN, speed_right); //write speed_right to ENB_PIN,if speed_right is high,allow right motor rotate
 }
 
-void CAR_stop()
+void rearParking()
 {
-  digitalWrite(MOTOR_L_1, LOW);
-  digitalWrite(MOTOR_L_2, LOW);
-  digitalWrite(MOTOR_R_1, LOW);
-  digitalWrite(MOTOR_R_2, LOW);
-  isStop = true;
+  int gap = 0;
+  int distance;
+  
+  setMiddle();
+
+  for (int count = REARAREA; count >= 0; count--)
+  {
+    forward();
+
+    int right = getRight();
+
+    if (right > 800 && right != 0)
+    {
+      gap++;
+    }
+    else
+    {
+      gap = 0;
+    }
+
+    if (gap > REARGAP)
+    {
+      break;
+    }
+  }
+  if (gap <= REARGAP)
+  {
+    return;
+  }
+
+  for(int i=0; i<5; i++)
+  {
+    forward();
+  }
+  flag=1;
+}
+
+void rearParking1()
+{
+  int left = getLeft();
+  
+  if (left < 1200 && left !=0)
+  {
+    flag=2;
+    return;
+  }
+  
+  setRight();
+  back();
+}
+
+void rearParking2()
+{
+  if (isHorizontal())
+  {
+    setMiddle();
+    flag=0;
+    return;
+  }
+
+  int left = getLeft();
+  int right = getRight();
+
+  angle = ANGLE_MIDDLE + (right - left) / 30;
+  if (angle > ANGLE_RIGHT3)
+    angle = ANGLE_RIGHT3;
+  else if (angle < ANGLE_LEFT3)
+    angle = ANGLE_LEFT3;
+
+  if (angle != ANGLE_MIDDLE)
+  {
+    myservo.write(ANGLE_MIDDLE);
+    delay(MOVETIME);
+
+    forward();
+
+    myservo.write(angle);
+    delay(MOVETIME);
+    
+    back();
+
+    if (isHorizontal())
+    {
+      setMiddle();
+      flag=0;
+      return;
+    }
+  }
+
+  myservo.write(angle);
+  delay(MOVETIME);
+  back();
+}
+
+void parallel()
+{
+  for(int i=0; i<1; i++)
+  {
+    forward();
+  }
+
+  setRight();
+
+  for(int i=0; i<15; i++)
+  {
+    back();
+  } 
+
+  delay(MOVETIME*2);
+  setLeft();
+
+  for(int i=0; i<5; i++)
+  {
+    back();
+  }
+
+  delay(MOVETIME*2);
+  setRight();
+
+  for(int i=0; i<3; i++)
+  {
+    forward();
+  }
+
+  delay(MOVETIME*2);
+  setLeft();
+
+  for(int i=0; i<3; i++)
+  {
+    back();
+  }
+
+  delay(MOVETIME*2);
+  setRight();
+
+  for(int i=0; i<6; i++)
+  {
+    forward();
+  }
+
+  delay(MOVETIME*2);
+  setMiddle();
+
+  for(int i=0; i<1; i++)
+  {
+    back();
+  }
 }
 
